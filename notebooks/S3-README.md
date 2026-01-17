@@ -209,7 +209,7 @@ Un **dictionnaire** est une collection d'associations **clé → valeur**.
 
 * Chaque clé est unique
 * On accède aux valeurs par leur clé (pas par un index numérique)
-* Non ordonné (l'ordre n'est pas garanti)
+* L'ordre d'insertion est préservé (dans les versions récentes)
 
 **Notation :**
 

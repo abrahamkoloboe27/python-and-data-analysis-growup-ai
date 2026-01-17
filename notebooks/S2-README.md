@@ -407,6 +407,7 @@ FIN
 **Indications :**
 
 * Diviser la phrase en mots
+* Retirer la ponctuation si nécessaire (points, virgules, etc.)
 * Parcourir chaque mot
 * Comparer avec le mot recherché (en ignorant la casse)
 * Compter les correspondances
@@ -422,8 +423,11 @@ DEBUT
   phrase_min ← mettre_en_minuscules(phrase)
   mot_min ← mettre_en_minuscules(mot_recherché)
   
+  -- Retirer la ponctuation de la phrase
+  phrase_nettoyée ← retirer_ponctuation(phrase_min)
+  
   -- Diviser la phrase en liste de mots
-  liste_mots ← séparer(phrase_min, " ")
+  liste_mots ← séparer(phrase_nettoyée, " ")
   
   -- Parcourir chaque mot
   POUR chaque mot dans liste_mots FAIRE
