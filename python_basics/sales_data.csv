@@ -1,0 +1,31 @@
+date,produit,categorie,quantite,prix_unitaire,client,ville
+2024-01-01,Ordinateur Portable,Informatique,2,899.99,Alice Dupont,Paris
+2024-01-01,Souris,Informatique,5,29.99,Bob Martin,Lyon
+2024-01-02,Clavier,Informatique,3,79.99,Charlie Durand,Marseille
+2024-01-02,Écran,Informatique,1,299.99,Alice Dupont,Paris
+2024-01-03,Chaise Bureau,Mobilier,4,149.99,David Bernard,Toulouse
+2024-01-03,Bureau,Mobilier,2,349.99,Eve Lambert,Nice
+2024-01-04,Lampe,Mobilier,6,39.99,Frank Moreau,Nantes
+2024-01-04,Ordinateur Portable,Informatique,1,899.99,Bob Martin,Lyon
+2024-01-05,Souris,Informatique,10,29.99,Alice Dupont,Paris
+2024-01-05,Casque Audio,Informatique,3,89.99,Charlie Durand,Marseille
+2024-01-06,Webcam,Informatique,2,119.99,David Bernard,Toulouse
+2024-01-06,Clavier,Informatique,4,79.99,Eve Lambert,Nice
+2024-01-07,Bureau,Mobilier,1,349.99,Frank Moreau,Nantes
+2024-01-07,Chaise Bureau,Mobilier,2,149.99,Alice Dupont,Paris
+2024-01-08,Écran,Informatique,3,299.99,Bob Martin,Lyon
+2024-01-08,Lampe,Mobilier,4,39.99,Charlie Durand,Marseille
+2024-01-09,Ordinateur Portable,Informatique,1,899.99,David Bernard,Toulouse
+2024-01-09,Souris,Informatique,8,29.99,Eve Lambert,Nice
+2024-01-10,Casque Audio,Informatique,2,89.99,Frank Moreau,Nantes
+2024-01-10,Clavier,Informatique,5,79.99,Alice Dupont,Paris
+2024-01-11,Webcam,Informatique,1,119.99,Bob Martin,Lyon
+2024-01-11,Bureau,Mobilier,3,349.99,Charlie Durand,Marseille
+2024-01-12,Chaise Bureau,Mobilier,5,149.99,David Bernard,Toulouse
+2024-01-12,Lampe,Mobilier,7,39.99,Eve Lambert,Nice
+2024-01-13,Écran,Informatique,2,299.99,Frank Moreau,Nantes
+2024-01-13,Ordinateur Portable,Informatique,1,899.99,Alice Dupont,Paris
+2024-01-14,Souris,Informatique,6,29.99,Bob Martin,Lyon
+2024-01-14,Casque Audio,Informatique,4,89.99,Charlie Durand,Marseille
+2024-01-15,Clavier,Informatique,2,79.99,David Bernard,Toulouse
+2024-01-15,Webcam,Informatique,3,119.99,Eve Lambert,Nice
