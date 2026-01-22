@@ -18,6 +18,9 @@ pytest-html>=3.2.0
 pandas>=2.0.0
 numpy>=1.24.0
 
+# Base de données
+sqlalchemy>=2.0.0
+
 # Qualité de code
 pylint>=2.17.0
 black>=23.3.0
