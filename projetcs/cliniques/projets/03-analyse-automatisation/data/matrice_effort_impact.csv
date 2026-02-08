@@ -1,0 +1,7 @@
+Processus,Impact,Effort,ROI_mois,Gain_h_semaine,Catégorie
+Prise de RDV,95,30,4,8,🟢 Quick Win
+Facturation,85,25,3,4,🟢 Quick Win
+Dossiers Patients,90,70,9,12,🟡 Stratégique
+Analyse Données,80,65,8,5,🟡 Stratégique
+Gestion Stocks,70,60,10,3,🔴 À Reporter
+Rappels SMS,75,15,2,2,🔵 Gain Marginal

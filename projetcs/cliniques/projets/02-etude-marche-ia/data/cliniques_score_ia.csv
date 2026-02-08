@@ -1,0 +1,29 @@
+clinic_name,location,number_of_beds,taille_categorie,ia_score,segment_ia
+PISAM,Cocody,123.0,Grande (>50 lits),72.5,🟢 Early Adopters
+Polyclinique saint Henriette,Cocody Angré 8eme tranche,45.0,Moyenne (15-50 lits),52.5,🟡 Pragmatiques
+Clinique sainte Henriette,Bonoua,10.0,Petite (<15 lits),50.0,🟡 Pragmatiques
+Hôpital islamique Daloa,Savonnerie Route d’issia,15.0,Moyenne (15-50 lits),85.0,🟢 Early Adopters
+Centre médical Concorde Daloa,Quartier commerce,2.0,Petite (<15 lits),90.0,🟢 Early Adopters
+CLINIQUE MEDICALE CRYSALIDE,YOPOUGON TOIT-ROUGE,80.0,Grande (>50 lits),90.0,🟢 Early Adopters
+CLINIQUE MEDICALE MISERICODE DIEU,YOPOUGON ANCIEN BEL AIRE,,Inconnue,42.5,🟡 Pragmatiques
+Clinique l’Antilope de Daloa,Quartier Tazibouo,11.0,Petite (<15 lits),90.0,🟢 Early Adopters
+Clinique Saint Jean,Bonoua,50.0,Moyenne (15-50 lits),57.5,🟡 Pragmatiques
+Clinique hôtel Maria,Yopougon,60.0,Grande (>50 lits),52.5,🟡 Pragmatiques
+Clinique médicale Espoir,"Daloa,Tazibouo 4eme arrondissement",11.0,Petite (<15 lits),85.0,🟢 Early Adopters
+CENTRE MÉDICAL MARVING,BINGERVILLE,4.0,Petite (<15 lits),65.0,🟡 Pragmatiques
+Groupe Médical Hanniel,Daloa,30.0,Moyenne (15-50 lits),75.0,🟢 Early Adopters
+CLINIQUE MÉDICALE NOTRE DAME DE FATIMA,ABOBO CENTRE,15.0,Moyenne (15-50 lits),65.0,🟡 Pragmatiques
+Clinique médicale Grâce Divine,Daloa entre la pharmacie du grand marché et le grand marché,16.0,Moyenne (15-50 lits),75.0,🟢 Early Adopters
+AIBEF,Bouake,,Inconnue,82.5,🟢 Early Adopters
+CLINIQUE CMENA,BOUAKÉ,25.0,Moyenne (15-50 lits),42.5,🟡 Pragmatiques
+CLINIQUE MÉDICALE,BOUAKÉ,15.0,Moyenne (15-50 lits),95.0,🟢 Early Adopters
+CLINIQUE STE BERNADETTE,BOUAKÉ ( BELLE VILLE 2),10.0,Petite (<15 lits),82.5,🟢 Early Adopters
+Maltimere,Abobo,7.0,Petite (<15 lits),55.0,🟡 Pragmatiques
+Clinique Saint Christophe,Koumassi,10.0,Petite (<15 lits),55.0,🟡 Pragmatiques
+Clinique Soraya,Koumassi,15.0,Moyenne (15-50 lits),45.0,🟡 Pragmatiques
+CLINIQUE GRÂCE DIVINE,BOUAKE,12.0,Petite (<15 lits),77.5,🟢 Early Adopters
+Clinique médicale st Michel,Port bouet,20.0,Moyenne (15-50 lits),50.0,🟡 Pragmatiques
+Clinique médicale de l'union,Port bouet,80.0,Grande (>50 lits),52.5,🟡 Pragmatiques
+Clinique Malon,Port bouet,45.0,Moyenne (15-50 lits),47.5,🟡 Pragmatiques
+,,,Inconnue,0.0,🔴 Conservateurs
+POLYCLINIQUE KENNEDY,BOUAKÉ,35.0,Moyenne (15-50 lits),65.0,🟡 Pragmatiques
