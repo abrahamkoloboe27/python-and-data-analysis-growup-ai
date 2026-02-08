@@ -1,0 +1,6 @@
+Processus,Demande,Pourcentage,Priorité
+Gestion dossiers patients,23,82.14285714285714,🟡 HAUTE
+Prise de rendez-vous,22,78.57142857142857,🟡 HAUTE
+Analyse de données,15,53.57142857142857,🟢 MOYENNE
+Gestion des stocks,13,46.42857142857143,⚪ FAIBLE
+Facturation,11,39.285714285714285,⚪ FAIBLE
