@@ -1,0 +1,29 @@
+clinic_name,location,number_of_beds,number_of_healthcare_staff,taille_categorie,considere_ia,interesse_demo,ia_score,segment_ia,nb_benefices_identifies,nb_obstacles_identifies,nb_supports_souhaites
+PISAM,Cocody,123.0,,Grande (>50 lits),Oui,Peut-être,72.5,🟢 Early Adopters,3,0,2
+Polyclinique saint Henriette,Cocody Angré 8eme tranche,45.0,,Moyenne (15-50 lits),Oui,Oui,52.5,🟡 Pragmatiques,1,1,1
+Clinique sainte Henriette,Bonoua,10.0,30.0,Petite (<15 lits),Oui,Peut-être,50.0,🟡 Pragmatiques,2,1,1
+Hôpital islamique Daloa,Savonnerie Route d’issia,15.0,10.0,Moyenne (15-50 lits),Oui,Oui,85.0,🟢 Early Adopters,4,3,3
+Centre médical Concorde Daloa,Quartier commerce,2.0,7.0,Petite (<15 lits),Oui,Oui,90.0,🟢 Early Adopters,4,0,2
+CLINIQUE MEDICALE CRYSALIDE,YOPOUGON TOIT-ROUGE,80.0,50.0,Grande (>50 lits),Oui,Oui,90.0,🟢 Early Adopters,4,2,3
+CLINIQUE MEDICALE MISERICODE DIEU,YOPOUGON ANCIEN BEL AIRE,,,Inconnue,Oui,Peut-être,42.5,🟡 Pragmatiques,1,1,1
+Clinique l’Antilope de Daloa,Quartier Tazibouo,11.0,8.0,Petite (<15 lits),Oui,Oui,90.0,🟢 Early Adopters,4,2,3
+Clinique Saint Jean,Bonoua,50.0,70.0,Moyenne (15-50 lits),Oui,Peut-être,57.5,🟡 Pragmatiques,3,1,1
+Clinique hôtel Maria,Yopougon,60.0,90.0,Grande (>50 lits),Oui,Peut-être,52.5,🟡 Pragmatiques,3,2,1
+Clinique médicale Espoir,"Daloa,Tazibouo 4eme arrondissement",11.0,11.0,Petite (<15 lits),Oui,Oui,85.0,🟢 Early Adopters,4,3,3
+CENTRE MÉDICAL MARVING,BINGERVILLE,4.0,10.0,Petite (<15 lits),Oui,Peut-être,65.0,🟡 Pragmatiques,2,0,2
+Groupe Médical Hanniel,Daloa,30.0,84.0,Moyenne (15-50 lits),Oui,Oui,75.0,🟢 Early Adopters,2,2,3
+CLINIQUE MÉDICALE NOTRE DAME DE FATIMA,ABOBO CENTRE,15.0,15.0,Moyenne (15-50 lits),Non,Oui,65.0,🟡 Pragmatiques,4,1,2
+Clinique médicale Grâce Divine,Daloa entre la pharmacie du grand marché et le grand marché,16.0,20.0,Moyenne (15-50 lits),Non,Oui,75.0,🟢 Early Adopters,4,1,3
+AIBEF,Bouake,,6.0,Inconnue,Oui,Oui,82.5,🟢 Early Adopters,3,2,3
+CLINIQUE CMENA,BOUAKÉ,25.0,15.0,Moyenne (15-50 lits),Non,Peut-être,42.5,🟡 Pragmatiques,3,2,2
+CLINIQUE MÉDICALE,BOUAKÉ,15.0,21.0,Moyenne (15-50 lits),Oui,Oui,95.0,🟢 Early Adopters,4,1,3
+CLINIQUE STE BERNADETTE,BOUAKÉ ( BELLE VILLE 2),10.0,9.0,Petite (<15 lits),Oui,Oui,82.5,🟢 Early Adopters,3,2,3
+Maltimere,Abobo,7.0,13.0,Petite (<15 lits),Oui,Peut-être,55.0,🟡 Pragmatiques,2,2,2
+Clinique Saint Christophe,Koumassi,10.0,7.0,Petite (<15 lits),Oui,Peut-être,55.0,🟡 Pragmatiques,2,2,2
+Clinique Soraya,Koumassi,15.0,30.0,Moyenne (15-50 lits),Oui,Peut-être,45.0,🟡 Pragmatiques,2,2,1
+CLINIQUE GRÂCE DIVINE,BOUAKE,12.0,9.0,Petite (<15 lits),Oui,Oui,77.5,🟢 Early Adopters,3,3,3
+Clinique médicale st Michel,Port bouet,20.0,13.0,Moyenne (15-50 lits),Oui,Peut-être,50.0,🟡 Pragmatiques,2,1,1
+Clinique médicale de l'union,Port bouet,80.0,50.0,Grande (>50 lits),Oui,Peut-être,52.5,🟡 Pragmatiques,1,1,2
+Clinique Malon,Port bouet,45.0,24.0,Moyenne (15-50 lits),Oui,Peut-être,47.5,🟡 Pragmatiques,3,3,1
+,,,,Inconnue,Peut-être,Peut-être,0.0,🔴 Conservateurs,0,0,0
+POLYCLINIQUE KENNEDY,BOUAKÉ,35.0,40.0,Moyenne (15-50 lits),Oui,Oui,65.0,🟡 Pragmatiques,2,2,2
