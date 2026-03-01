@@ -9,7 +9,7 @@ Ce script :
 
 Utilisation
 -----------
-    python main.py [--reset] [--date-debut YYYY-MM-DD] [--date-fin YYYY-MM-DD]
+    python main.py [--reset] [--date-debut YYYY-MM-DD] [--date-fin YYYY-MM-DD] [--batch-size N]
 
 Options
 -------
@@ -17,6 +17,7 @@ Options
                        (utile pour repartir d'une base vide).
     --date-debut     : Surcharge la variable DATE_DEBUT de generate_data.py.
     --date-fin       : Surcharge la variable DATE_FIN de generate_data.py.
+    --batch-size     : Taille des lots d'insert SQL (défaut : 1000).
 
 Prérequis
 ---------
@@ -106,6 +107,13 @@ def parse_args() -> argparse.Namespace:
         metavar="YYYY-MM-DD",
         help="Date de fin de la période de génération (défaut : 2024-07-31).",
     )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=1000,
+        metavar="N",
+        help="Taille des lots d'insert SQL (défaut : 1000).",
+    )
     return parser.parse_args()
 
 
@@ -120,6 +128,10 @@ def main() -> None:
 
     date_debut = args.date_debut or DATE_DEBUT
     date_fin = args.date_fin or DATE_FIN
+
+    if args.batch_size <= 0:
+        raise ValueError("--batch-size doit être un entier strictement positif")
+    os.environ["DB_BATCH_SIZE"] = str(args.batch_size)
 
     generator = SchoolDataGenerator(date_debut=date_debut, date_fin=date_fin)
     generator.run()

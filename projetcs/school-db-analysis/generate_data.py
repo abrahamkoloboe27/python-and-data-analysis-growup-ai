@@ -192,6 +192,7 @@ class SchoolDataGenerator:
         )
         self.conn.autocommit = False
         self.cur = self.conn.cursor()
+        self.batch_size = int(os.getenv("DB_BATCH_SIZE", "1000"))
 
         # Mémoire locale des IDs insérés (évite des SELECT répétés)
         self.pays_ids: List[int] = []
@@ -220,16 +221,49 @@ class SchoolDataGenerator:
             f"VALUES ({', '.join(placeholders)}) RETURNING id"
         )
         self.cur.execute(sql, data)
-        return self.cur.fetchone()[0]
+        row = self.cur.fetchone()
+        if row is None:
+            raise RuntimeError(f"Aucun id retourné après insertion dans {table}")
+        return row[0]
 
-    def _insert_many(self, table: str, rows: List[Dict[str, Any]]) -> None:
+    def _chunked(self, rows: List[Dict[str, Any]]) -> List[List[Dict[str, Any]]]:
+        if not rows:
+            return []
+        return [rows[i:i + self.batch_size] for i in range(0, len(rows), self.batch_size)]
+
+    def _insert_many(
+        self,
+        table: str,
+        rows: List[Dict[str, Any]],
+        on_conflict_do_nothing: bool = True,
+    ) -> None:
         """Insère plusieurs lignes d'un coup (sans RETURNING)."""
         if not rows:
             return
         cols = list(rows[0].keys())
-        values = [[r[c] for c in cols] for r in rows]
-        sql = f"INSERT INTO {table} ({', '.join(cols)}) VALUES %s ON CONFLICT DO NOTHING"
-        self._execute_values(self.cur, sql, values)
+        sql = f"INSERT INTO {table} ({', '.join(cols)}) VALUES %s"
+        if on_conflict_do_nothing:
+            sql += " ON CONFLICT DO NOTHING"
+
+        for chunk in self._chunked(rows):
+            values = [[r[c] for c in cols] for r in chunk]
+            self._execute_values(self.cur, sql, values)
+
+    def _insert_many_returning_ids(self, table: str, rows: List[Dict[str, Any]]) -> List[int]:
+        """Insère plusieurs lignes et retourne la liste des IDs générés."""
+        if not rows:
+            return []
+
+        cols = list(rows[0].keys())
+        sql = f"INSERT INTO {table} ({', '.join(cols)}) VALUES %s RETURNING id"
+
+        inserted_ids: List[int] = []
+        for chunk in self._chunked(rows):
+            values = [[r[c] for c in cols] for r in chunk]
+            returned = self._execute_values(self.cur, sql, values, fetch=True)
+            inserted_ids.extend(row[0] for row in returned)
+
+        return inserted_ids
 
     # ------------------------------------------------------------------
     # Étape 1 : Référentiels
@@ -238,8 +272,8 @@ class SchoolDataGenerator:
     def generate_pays(self) -> None:
         print("→ Insertion des pays…")
         data = PAYS_DATA[:NB_PAYS]
-        for p in data:
-            pid = self._insert_one("pays", p)
+        ids = self._insert_many_returning_ids("pays", data)
+        for pid in ids:
             self.pays_ids.append(pid)
 
     def generate_villes(self) -> None:
@@ -257,42 +291,49 @@ class SchoolDataGenerator:
             "Kaolack", "Mbour", "Rufisque", "Touba",
         ]
         pool_par_pays = [villes_fr, villes_bj, villes_sn]
+        villes_rows: List[Dict[str, Any]] = []
+        villes_meta: List[Tuple[int, str]] = []
         for i, pays_id in enumerate(self.pays_ids):
             pool = pool_par_pays[i] if i < len(pool_par_pays) else []
             noms = pool[:NB_VILLES_PAR_PAYS]
             for nom in noms:
-                vid = self._insert_one(
-                    "villes",
-                    {"nom": nom, "pays_id": pays_id, "code_postal": fake.postcode()},
+                villes_rows.append(
+                    {"nom": nom, "pays_id": pays_id, "code_postal": fake.postcode()}
                 )
-                self.villes.append({"id": vid, "pays_id": pays_id, "nom": nom})
+                villes_meta.append((pays_id, nom))
+
+        ids = self._insert_many_returning_ids("villes", villes_rows)
+        for vid, (pays_id, nom) in zip(ids, villes_meta):
+            self.villes.append({"id": vid, "pays_id": pays_id, "nom": nom})
 
     def generate_niveaux(self) -> None:
         print("→ Insertion des niveaux scolaires…")
-        for n in NIVEAUX_DATA:
-            nid = self._insert_one("niveaux", n)
+        ids = self._insert_many_returning_ids("niveaux", NIVEAUX_DATA)
+        for nid, n in zip(ids, NIVEAUX_DATA):
             self.niveaux.append({"id": nid, **n})
 
     def generate_matieres(self) -> None:
         print("→ Insertion des matières…")
-        for m in MATIERES_DATA:
-            mid = self._insert_one("matieres", m)
+        ids = self._insert_many_returning_ids("matieres", MATIERES_DATA)
+        for mid, m in zip(ids, MATIERES_DATA):
             self.matieres.append({"id": mid, **m})
 
     def generate_annees_scolaires(self) -> None:
         print("→ Insertion des années scolaires…")
         annees_raw = _annees_scolaires_entre(self.date_debut, self.date_fin)
+        rows: List[Dict[str, Any]] = []
         for i, (libelle, debut, fin) in enumerate(annees_raw):
             is_last = i == len(annees_raw) - 1
-            aid = self._insert_one(
-                "annees_scolaires",
+            rows.append(
                 {
                     "libelle": libelle,
                     "date_debut": debut,
                     "date_fin": fin,
                     "est_active": is_last,
-                },
+                }
             )
+        ids = self._insert_many_returning_ids("annees_scolaires", rows)
+        for aid, (libelle, debut, fin) in zip(ids, annees_raw):
             self.annees.append({"id": aid, "libelle": libelle, "date_debut": debut, "date_fin": fin})
 
     # ------------------------------------------------------------------
@@ -303,11 +344,12 @@ class SchoolDataGenerator:
         print("→ Insertion des écoles…")
         types = ["public", "prive", "communautaire"]
         niveaux_ecole = ["primaire", "college", "lycee"]
+        rows: List[Dict[str, Any]] = []
+        meta: List[Tuple[int, str]] = []
         for ville in self.villes:
             for _ in range(NB_ECOLES_PAR_VILLE):
                 niveau = random.choice(niveaux_ecole)
-                eid = self._insert_one(
-                    "ecoles",
+                rows.append(
                     {
                         "nom": f"École {fake.last_name()} – {ville['nom']}",
                         "adresse": fake.street_address(),
@@ -319,9 +361,13 @@ class SchoolDataGenerator:
                         "directeur": fake.name(),
                         "date_creation": _random_date_between(date(1980, 1, 1), date(2015, 1, 1)),
                         "capacite_max": random.randint(200, 1200),
-                    },
+                    }
                 )
-                self.ecoles.append({"id": eid, "ville_id": ville["id"], "niveau_ecole": niveau})
+                meta.append((ville["id"], niveau))
+
+        ids = self._insert_many_returning_ids("ecoles", rows)
+        for eid, (ville_id, niveau) in zip(ids, meta):
+            self.ecoles.append({"id": eid, "ville_id": ville_id, "niveau_ecole": niveau})
 
     # ------------------------------------------------------------------
     # Étape 3 : Classes (par école × niveau × année)
@@ -345,14 +391,15 @@ class SchoolDataGenerator:
     def generate_classes(self) -> None:
         print("→ Insertion des classes…")
         sections = ["A", "B", "C"]
+        rows: List[Dict[str, Any]] = []
+        meta: List[Dict[str, Any]] = []
         for ecole in self.ecoles:
             niveaux_ecole = self._niveaux_pour_ecole(ecole["niveau_ecole"])
             for annee in self.annees:
                 for niveau in niveaux_ecole:
                     for section in sections[:random.randint(1, 3)]:
                         nom_classe = f"{niveau['nom']} {section}"
-                        cid = self._insert_one(
-                            "classes",
+                        rows.append(
                             {
                                 "nom": nom_classe,
                                 "ecole_id": ecole["id"],
@@ -360,11 +407,10 @@ class SchoolDataGenerator:
                                 "annee_scolaire_id": annee["id"],
                                 "effectif_max": random.randint(25, 45),
                                 "salle": f"S{random.randint(1, 30):02d}",
-                            },
+                            }
                         )
-                        self.classes.append(
+                        meta.append(
                             {
-                                "id": cid,
                                 "ecole_id": ecole["id"],
                                 "niveau_id": niveau["id"],
                                 "niveau_ordre": niveau["ordre"],
@@ -375,19 +421,24 @@ class SchoolDataGenerator:
                             }
                         )
 
+        ids = self._insert_many_returning_ids("classes", rows)
+        for cid, cmeta in zip(ids, meta):
+            self.classes.append({"id": cid, **cmeta})
+
     # ------------------------------------------------------------------
     # Étape 4 : Enseignants & affectations
     # ------------------------------------------------------------------
 
     def generate_enseignants(self) -> None:
         print("→ Insertion des enseignants…")
+        rows: List[Dict[str, Any]] = []
+        meta: List[Tuple[int, str]] = []
         for ecole in self.ecoles:
             nb = random.randint(8, 15)
             for _ in range(nb):
                 genre = random.choice(["M", "F"])
                 specialite = random.choice(self.matieres)["nom"]
-                eid = self._insert_one(
-                    "enseignants",
+                rows.append(
                     {
                         "nom": fake.last_name(),
                         "prenom": fake.first_name_male() if genre == "M" else fake.first_name_female(),
@@ -398,9 +449,13 @@ class SchoolDataGenerator:
                         "date_embauche": _random_date_between(date(1990, 1, 1), date(2022, 1, 1)),
                         "specialite": specialite,
                         "ecole_id": ecole["id"],
-                    },
+                    }
                 )
-                self.enseignants.append({"id": eid, "ecole_id": ecole["id"], "specialite": specialite})
+                meta.append((ecole["id"], specialite))
+
+        ids = self._insert_many_returning_ids("enseignants", rows)
+        for eid, (ecole_id, specialite) in zip(ids, meta):
+            self.enseignants.append({"id": eid, "ecole_id": ecole_id, "specialite": specialite})
 
     def generate_enseignements(self) -> None:
         """Affecte un enseignant par (classe, matière) de l'école."""
@@ -438,6 +493,9 @@ class SchoolDataGenerator:
         premiere_annee = self.annees[0]
         classes_an1 = [c for c in self.classes if c["annee_id"] == premiere_annee["id"]]
 
+        eleves_rows: List[Dict[str, Any]] = []
+        eleves_meta: List[Tuple[int, float, int]] = []
+
         # Pour chaque classe de la première année, créer des élèves
         for classe in tqdm(classes_an1, desc="  Classes (an 1)"):
             nb_eleves = random.randint(
@@ -452,8 +510,7 @@ class SchoolDataGenerator:
                 )
                 genre = random.choice(["M", "F"])
                 ville_id = random.choice(self.villes)["id"]
-                eleve_id = self._insert_one(
-                    "eleves",
+                eleves_rows.append(
                     {
                         "nom": fake.last_name(),
                         "prenom": fake.first_name_male() if genre == "M" else fake.first_name_female(),
@@ -466,17 +523,33 @@ class SchoolDataGenerator:
                         "nom_parent": fake.name(),
                         "date_inscription": premiere_annee["date_debut"],
                         "nationalite": random.choice(["Française", "Béninoise", "Sénégalaise"]),
-                    },
+                    }
                 )
                 # Profil de l'élève : niveau de talent (centre de la distribution de notes)
                 talent = random.gauss(11.0, 3.0)
                 talent = max(4.0, min(18.0, talent))
-                self.eleves_profil[eleve_id] = {
-                    "niveau_ordre": classe["niveau_ordre"],
-                    "talent": talent,
+                eleves_meta.append((classe["niveau_ordre"], talent, classe["id"]))
+
+        eleves_ids = self._insert_many_returning_ids("eleves", eleves_rows)
+
+        inscriptions_rows: List[Dict[str, Any]] = []
+        for eleve_id, (niveau_ordre, talent, classe_id) in zip(eleves_ids, eleves_meta):
+            self.eleves_profil[eleve_id] = {
+                "niveau_ordre": niveau_ordre,
+                "talent": talent,
+            }
+            inscriptions_rows.append(
+                {
+                    "eleve_id": eleve_id,
+                    "classe_id": classe_id,
+                    "annee_scolaire_id": premiere_annee["id"],
+                    "date_inscription": premiere_annee["date_debut"],
+                    "statut": "actif",
                 }
-                # Inscription en première année
-                self._inscrire_eleve(eleve_id, classe, premiere_annee)
+            )
+            self.inscriptions_map[(eleve_id, premiere_annee["id"])] = classe_id
+
+        self._insert_many("inscriptions", inscriptions_rows, on_conflict_do_nothing=False)
 
         # Faire progresser les élèves sur les années suivantes
         for annee in self.annees[1:]:
@@ -513,6 +586,9 @@ class SchoolDataGenerator:
                 key = (c["ecole_id"], c["niveau_ordre"])
                 classes_annee.setdefault(key, []).append(c)
 
+        inscriptions_rows: List[Dict[str, Any]] = []
+        progression_meta: List[Tuple[int, int, int]] = []
+
         for eleve_id, profil in self.eleves_profil.items():
             # Vérifier que l'élève était actif l'année précédente
             classe_id_prec = self.inscriptions_map.get((eleve_id, annee_precedente["id"]))
@@ -537,7 +613,11 @@ class SchoolDataGenerator:
             )
             ecole_id_prec = classe_prec_info["ecole_id"] if classe_prec_info else None
 
-            cands = classes_annee.get((ecole_id_prec, nouveau_niveau_ordre), [])
+            cands = (
+                classes_annee.get((ecole_id_prec, nouveau_niveau_ordre), [])
+                if ecole_id_prec is not None
+                else []
+            )
             if not cands:
                 # Chercher dans n'importe quelle école avec ce niveau
                 cands = [
@@ -551,9 +631,21 @@ class SchoolDataGenerator:
 
             nouvelle_classe = random.choice(cands)
             statut = "redoublant" if redouble else "actif"
-            self._inscrire_eleve(eleve_id, nouvelle_classe, annee, statut=statut)
-            # Mettre à jour le profil
+            inscriptions_rows.append(
+                {
+                    "eleve_id": eleve_id,
+                    "classe_id": nouvelle_classe["id"],
+                    "annee_scolaire_id": annee["id"],
+                    "date_inscription": annee["date_debut"],
+                    "statut": statut,
+                }
+            )
+            progression_meta.append((eleve_id, annee["id"], nouvelle_classe["id"]))
             self.eleves_profil[eleve_id]["niveau_ordre"] = nouveau_niveau_ordre
+
+        self._insert_many("inscriptions", inscriptions_rows, on_conflict_do_nothing=False)
+        for eleve_id, annee_id, classe_id in progression_meta:
+            self.inscriptions_map[(eleve_id, annee_id)] = classe_id
 
     # ------------------------------------------------------------------
     # Étape 6 : Évaluations & Notes
@@ -578,13 +670,15 @@ class SchoolDataGenerator:
                 if not eleves_classe:
                     continue
 
+                evaluations_rows: List[Dict[str, Any]] = []
+                eval_contexts: List[Tuple[date, List[int]]] = []
+
                 for trimestre_num, t_debut, t_fin in trimestres_annee:
                     for matiere in matieres_classe:
                         for eval_num in range(1, NB_EVALUATIONS_PAR_MATIERE_PAR_TRIM + 1):
                             type_ev = "composition" if eval_num == 2 else random.choice(types_eval)
                             date_eval = _random_date_between(t_debut, t_fin)
-                            eval_id = self._insert_one(
-                                "evaluations",
+                            evaluations_rows.append(
                                 {
                                     "titre": f"{matiere['nom']} – {type_ev.capitalize()} T{trimestre_num} n°{eval_num}",
                                     "matiere_id": matiere["id"],
@@ -596,24 +690,27 @@ class SchoolDataGenerator:
                                     "date_fin": None,
                                     "note_max": 20.0,
                                     "coefficient": float(eval_num),
-                                },
+                                }
                             )
+                            eval_contexts.append((date_eval, eleves_classe))
 
-                            # Notes pour chaque élève de la classe
-                            notes_rows: List[Dict[str, Any]] = []
-                            for eleve_id in eleves_classe:
-                                talent = self.eleves_profil.get(eleve_id, {}).get("talent", 10.0)
-                                note = _note_aleatoire(niveau_eleve=talent)
-                                notes_rows.append(
-                                    {
-                                        "evaluation_id": eval_id,
-                                        "eleve_id": eleve_id,
-                                        "note": note,
-                                        "observation": None,
-                                        "date_saisie": date_eval + timedelta(days=random.randint(1, 7)),
-                                    }
-                                )
-                            self._insert_many("notes", notes_rows)
+                evaluation_ids = self._insert_many_returning_ids("evaluations", evaluations_rows)
+
+                notes_rows: List[Dict[str, Any]] = []
+                for eval_id, (date_eval, eleves_ids) in zip(evaluation_ids, eval_contexts):
+                    for eleve_id in eleves_ids:
+                        talent = self.eleves_profil.get(eleve_id, {}).get("talent", 10.0)
+                        note = _note_aleatoire(niveau_eleve=talent)
+                        notes_rows.append(
+                            {
+                                "evaluation_id": eval_id,
+                                "eleve_id": eleve_id,
+                                "note": note,
+                                "observation": None,
+                                "date_saisie": date_eval + timedelta(days=random.randint(1, 7)),
+                            }
+                        )
+                self._insert_many("notes", notes_rows)
 
     # ------------------------------------------------------------------
     # Étape 7 : Absences
