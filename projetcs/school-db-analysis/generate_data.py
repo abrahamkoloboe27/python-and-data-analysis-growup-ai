@@ -42,7 +42,7 @@ load_dotenv()
 # ---------------------------------------------------------------------------
 # Modifiez ces deux dates pour changer la plage temporelle de la génération.
 DATE_DEBUT: date = date(2019, 9, 1)   # Première rentrée scolaire
-DATE_FIN: date = date(2024, 7, 31)    # Fin de la dernière année scolaire
+DATE_FIN: date = date(2025, 12, 31)    # Fin de la dernière année scolaire
 
 # Paramètres de volumétrie (ajustables)
 NB_PAYS: int = 3
