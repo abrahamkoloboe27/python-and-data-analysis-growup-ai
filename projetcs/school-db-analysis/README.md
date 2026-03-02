@@ -7,7 +7,8 @@ Projet de génération et d'analyse d'une base de données scolaire PostgreSQL.
 Ce module crée une base de données PostgreSQL réaliste simulant le fonctionnement
 d'un système éducatif multi-pays sur plusieurs années scolaires. Il génère des
 données factices cohérentes à l'aide de **Faker**, **random** et **Pydantic**,
-puis les insère directement en base via **psycopg2** / **SQLAlchemy**.
+les sauvegarde au format **Parquet** dans le dossier `data/`, puis les insère
+en base via **psycopg2**.
 
 ---
 
@@ -15,13 +16,32 @@ puis les insère directement en base via **psycopg2** / **SQLAlchemy**.
 
 ```
 school-db-analysis/
+├── data/               # Fichiers Parquet générés (ignorés par git)
+│   └── .gitkeep
 ├── schema.sql          # Définition complète du schéma PostgreSQL
 ├── models.py           # Modèles Pydantic (validation des données)
-├── generate_data.py    # Logique de génération des données factices
-├── main.py             # Point d'entrée (init DB + génération)
+├── generate_data.py    # Génération en mémoire + sauvegarde Parquet + insertion DB
+├── main.py             # Point d'entrée (orchestration des 3 étapes)
 ├── requirements.txt    # Dépendances Python
 ├── .env.example        # Template de configuration (credentials PostgreSQL)
 └── README.md           # Ce fichier
+```
+
+---
+
+## Workflow
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  Étape 1 – Génération en mémoire                             │
+│  SchoolDataGenerator.generate()                              │
+├──────────────────────────────────────────────────────────────┤
+│  Étape 2 – Sauvegarde Parquet → data/<table>.parquet         │
+│  SchoolDataGenerator.save_to_parquet(data_dir)               │
+├──────────────────────────────────────────────────────────────┤
+│  Étape 3 – Connexion DB · création du schéma · insertion     │
+│  apply_schema()  +  insert_from_parquet(data_dir, conn)      │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -73,7 +93,7 @@ cp .env.example .env
 
 ## Utilisation
 
-### Créer le schéma et générer les données (période par défaut : 2019–2024)
+### Workflow complet : générer, sauvegarder en Parquet et insérer en base
 
 ```bash
 python main.py --reset
@@ -84,6 +104,13 @@ python main.py --reset
 ```bash
 python main.py --reset --date-debut 2020-09-01 --date-fin 2023-07-31
 ```
+
+### Générer les données et sauvegarder en Parquet uniquement (sans base)
+
+```bash
+python generate_data.py
+```
+Les fichiers Parquet sont créés dans le dossier `data/`.
 
 ### Sans reset (ajout de données sans recréer le schéma)
 
@@ -119,7 +146,8 @@ python main.py
     tout au long de sa scolarité pour garantir la cohérence des résultats.
 - **Trimestres** : 3 trimestres par année scolaire, avec des dates réalistes.
 - **Bulletins** : la moyenne générale est calculée en pondérant les notes
-  par les coefficients des évaluations, sur 20.
+  par les coefficients des évaluations, sur 20. Le calcul est effectué
+  entièrement en mémoire Python avant l'insertion en base.
 - **Multi-années** : toutes les données couvrent la plage `DATE_DEBUT` → `DATE_FIN`.
 
 ---
