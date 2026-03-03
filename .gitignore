@@ -214,3 +214,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# school-db-analysis: données générées (Parquet)
+projetcs/school-db-analysis/data/*.parquet
