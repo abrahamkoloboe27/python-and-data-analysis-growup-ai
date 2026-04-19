@@ -27,7 +27,7 @@
 -- -----------------------------------------------------------------------------
 -- 1. ROW_NUMBER() – Numéroter les lignes
 --    Attribue un numéro unique à chaque ligne dans la fenêtre.
---    Identique à RANK, mais sans ex-æquo : chaque ligne reçoit un numéro
+--    Identique à RANK, mais sans ex-aequo : chaque ligne reçoit un numéro
 --    distinct même en cas d'égalité.
 -- -----------------------------------------------------------------------------
 -- Numéroter les commandes du plus récent au plus ancien
@@ -59,8 +59,8 @@ LIMIT 20;
 
 -- -----------------------------------------------------------------------------
 -- 2. RANK() et DENSE_RANK() – Classer avec ex-æquo
---    RANK()       : saute des rangs en cas d'égalité (1, 1, 3, 4…)
---    DENSE_RANK() : ne saute pas de rang            (1, 1, 2, 3…)
+--    RANK()       : saute des rangs en cas d'ex-aequo (1, 1, 3, 4…)
+--    DENSE_RANK() : ne saute pas de rang              (1, 1, 2, 3…)
 -- -----------------------------------------------------------------------------
 -- Classement des produits par chiffre d'affaires
 SELECT
@@ -262,7 +262,7 @@ LIMIT 20;
 
 -- -----------------------------------------------------------------------------
 -- 7. FIRST_VALUE() et LAST_VALUE() – Premier/dernier de la fenêtre
---    FIRST_VALUE(col) : valeur de la 1ʳᵉ ligne de la fenêtre
+--    FIRST_VALUE(col) : valeur de la 1ère ligne de la fenêtre
 --    LAST_VALUE(col)  : valeur de la dernière ligne
 --    ⚠️ LAST_VALUE nécessite souvent ROWS BETWEEN UNBOUNDED PRECEDING
 --       AND UNBOUNDED FOLLOWING pour couvrir toute la partition.
@@ -412,6 +412,6 @@ LIMIT 20;
 -- COUNT() OVER          Comptage dans la fenêtre
 -- LAG(col, n)           Valeur de la ligne précédente (n rangs avant)
 -- LEAD(col, n)          Valeur de la ligne suivante (n rangs après)
--- FIRST_VALUE(col)      Première valeur de la fenêtre
--- LAST_VALUE(col)       Dernière valeur de la fenêtre
+-- FIRST_VALUE(col)      Premiere valeur de la fenêtre
+-- LAST_VALUE(col)       Derniere valeur de la fenêtre
 -- =============================================================================
