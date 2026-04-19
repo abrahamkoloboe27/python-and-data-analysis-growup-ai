@@ -1,0 +1,43 @@
+# ============================================================================
+# Dépendances Python – Module SQL depuis Python (S13)
+# ============================================================================
+#
+# Installation :
+#   pip install -r requirements.txt
+#
+# Ce fichier liste les packages nécessaires pour :
+#   - Se connecter à SQLite et PostgreSQL depuis Python
+#   - Utiliser SQLAlchemy (ORM / connexion DB)
+#   - Manipuler les données avec pandas
+#   - Exécuter des notebooks Jupyter
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Connexion et ORM
+# ----------------------------------------------------------------------------
+sqlalchemy>=2.0.0          # ORM et couche d'abstraction SQL (SQLite, PostgreSQL, MySQL…)
+psycopg2-binary>=2.9.9     # Driver PostgreSQL natif pour Python
+
+# ----------------------------------------------------------------------------
+# Analyse de données
+# ----------------------------------------------------------------------------
+pandas>=2.0.0              # Manipulation de DataFrames + read_sql_query / to_sql
+numpy>=1.24.0              # Calculs numériques
+
+# ----------------------------------------------------------------------------
+# Visualisation (bonus notebook)
+# ----------------------------------------------------------------------------
+matplotlib>=3.7.0          # Graphiques statiques
+seaborn>=0.12.0            # Graphiques statistiques
+
+# ----------------------------------------------------------------------------
+# Jupyter
+# ----------------------------------------------------------------------------
+jupyter>=1.0.0
+notebook>=7.0.0
+ipykernel>=6.23.0
+
+# ----------------------------------------------------------------------------
+# Utilitaires
+# ----------------------------------------------------------------------------
+python-dotenv>=1.0.0       # Gestion des variables d'environnement (.env)
