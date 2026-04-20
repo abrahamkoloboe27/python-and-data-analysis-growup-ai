@@ -1,0 +1,12 @@
+﻿id_commande,date_commande,statut,nom_client,email_client,ville,pays,produit,categorie,fournisseur,quantite,prix_unitaire,remise_pct,sous_total,mode_paiement,annee,mois,remise_euros
+26,2026-01-08 10:40:00,Shipped,Antoine Moreau,antoine.moreau@email.fr,Rennes,France,Robot cuiseur Thermomix,Maison,Vorwerk,1,1299.0,2,1299.0,PayPal,2026,1,25.98
+26,2026-01-08 10:40:00,Shipped,Antoine Moreau,antoine.moreau@email.fr,Rennes,France,T-shirt Nike Sportswear,Vêtements,Nike,1,29.99,0,29.99,PayPal,2026,1,0.0
+27,2026-01-10 14:20:00,Shipped,Camille Simon,camille.simon@email.fr,Reims,France,iPad Air,Électronique,Apple Inc.,1,699.0,0,699.0,Carte bancaire,2026,1,0.0
+28,2026-01-12 09:50:00,Shipped,Nicolas Laurent,nicolas.laurent@email.fr,Le Havre,France,Souris Logitech MX Master 3,Électronique,Logitech,1,99.99,0,99.99,Carte bancaire,2026,1,0.0
+29,2026-01-14 16:10:00,Shipped,Laura Lefebvre,laura.lefebvre@email.fr,Saint-Étienne,France,Pull H&M en laine,Vêtements,H&M,1,39.99,0,39.99,PayPal,2026,1,0.0
+29,2026-01-14 16:10:00,Shipped,Laura Lefebvre,laura.lefebvre@email.fr,Saint-Étienne,France,T-shirt Nike Sportswear,Vêtements,Nike,2,29.99,0,59.98,PayPal,2026,1,0.0
+29,2026-01-14 16:10:00,Shipped,Laura Lefebvre,laura.lefebvre@email.fr,Saint-Étienne,France,Veste Adidas à capuche,Vêtements,Adidas,2,79.99,15,159.98,PayPal,2026,1,24.0
+30,2026-01-16 11:30:00,Shipped,Thomas Michel,thomas.michel@email.fr,Toulon,France,Samsung Galaxy S23,Électronique,Samsung Electronics,1,899.99,0,899.99,Carte bancaire,2026,1,0.0
+31,2026-01-18 13:45:00,Shipped,Sarah Garcia,sarah.garcia@email.fr,Grenoble,France,Chaussures Nike Air Max,Vêtements,Nike,2,139.99,10,279.98,Carte bancaire,2026,1,28.0
+32,2026-01-19 10:20:00,Shipped,Julien Roux,julien.roux@email.fr,Dijon,France,iPhone 14 Pro,Électronique,Apple Inc.,1,1159.0,0,1159.0,PayPal,2026,1,0.0
+33,2026-01-20 15:05:00,Shipped,Alice Fournier,alice.fournier@email.fr,Angers,France,Écouteurs Sony WH-1000XM5,Électronique,Sony Corporation,1,379.99,0,379.99,Carte bancaire,2026,1,0.0

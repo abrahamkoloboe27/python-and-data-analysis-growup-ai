@@ -1,0 +1,44 @@
+﻿id_commande,date_commande,statut,nom_client,email_client,ville,pays,produit,categorie,fournisseur,quantite,prix_unitaire,remise_pct,sous_total,mode_paiement,annee,mois,remise_euros
+1,2025-11-05,Delivered,Jean Dupont,jean.dupont@email.fr,Paris,France,Laptop Dell XPS 13,Électronique,Dell Inc.,1,1299.99,0,1299.99,Carte bancaire,2025,11,0.0
+1,2025-11-05,Delivered,Jean Dupont,jean.dupont@email.fr,Paris,France,T-shirt Nike Sportswear,Vêtements,Nike,1,29.99,0,29.99,Carte bancaire,2025,11,0.0
+2,2025-11-08,Delivered,Marie Martin,marie.martin@email.fr,Lyon,France,Samsung Galaxy S23,Électronique,Samsung Electronics,1,899.99,0,899.99,PayPal,2025,11,0.0
+3,2025-11-10,Delivered,Pierre Bernard,pierre.bernard@email.fr,Marseille,France,Laptop Dell XPS 13,Électronique,Dell Inc.,1,1299.99,0,1299.99,Carte bancaire,2025,11,0.0
+3,2025-11-10,Delivered,Pierre Bernard,pierre.bernard@email.fr,Marseille,France,T-shirt Nike Sportswear,Vêtements,Nike,1,29.99,0,29.99,Carte bancaire,2025,11,0.0
+3,2025-11-10,Delivered,Pierre Bernard,pierre.bernard@email.fr,Marseille,France,Écouteurs Sony WH-1000XM5,Électronique,Sony Corporation,1,379.99,5,379.99,Carte bancaire,2025,11,19.0
+4,2025-11-12,Delivered,Sophie Dubois,sophie.dubois@email.fr,Toulouse,France,Python pour les Data Sciences,Livres,Éditions Eyrolles,5,39.99,0,199.95000000000002,Carte bancaire,2025,11,0.0
+5,2025-11-15,Delivered,Luc Thomas,luc.thomas@email.fr,Nice,France,Écouteurs Sony WH-1000XM5,Électronique,Sony Corporation,1,379.99,0,379.99,PayPal,2025,11,0.0
+6,2025-11-18,Delivered,Julie Robert,julie.robert@email.fr,Nantes,France,"MacBook Pro 14""",Électronique,Apple Inc.,1,2299.0,0,2299.0,Carte bancaire,2025,11,0.0
+6,2025-11-18,Delivered,Julie Robert,julie.robert@email.fr,Nantes,France,Souris Logitech MX Master 3,Électronique,Logitech,1,99.99,0,99.99,Carte bancaire,2025,11,0.0
+7,2025-11-20,Delivered,Marc Richard,marc.richard@email.fr,Strasbourg,France,Clavier mécanique Logitech,Électronique,Logitech,1,149.99,0,149.99,Carte bancaire,2025,11,0.0
+8,2025-11-22,Delivered,Claire Petit,claire.petit@email.fr,Bordeaux,France,iPad Air,Électronique,Apple Inc.,1,699.0,0,699.0,PayPal,2025,11,0.0
+9,2025-11-25,Delivered,Paul Durand,paul.durand@email.fr,Montpellier,France,Chaussures Nike Air Max,Vêtements,Nike,1,139.99,0,139.99,Carte bancaire,2025,11,0.0
+10,2025-11-28,Delivered,Emma Leroy,emma.leroy@email.fr,Lille,France,Apple Watch Series 8,Électronique,Apple Inc.,1,449.0,0,449.0,Carte bancaire,2025,11,0.0
+11,2025-12-01,Delivered,Antoine Moreau,antoine.moreau@email.fr,Rennes,France,iPhone 14 Pro,Électronique,Apple Inc.,1,1159.0,0,1159.0,PayPal,2025,12,0.0
+12,2025-12-03,Delivered,Camille Simon,camille.simon@email.fr,Reims,France,Jean Levi's 501,Vêtements,Levi's,1,89.99,0,89.99,Carte bancaire,2025,12,0.0
+13,2025-12-05,Delivered,Nicolas Laurent,nicolas.laurent@email.fr,Le Havre,France,Aspirateur Dyson V11,Maison,Dyson,1,599.99,0,599.99,Carte bancaire,2025,12,0.0
+14,2025-12-08,Delivered,Laura Lefebvre,laura.lefebvre@email.fr,Saint-Étienne,France,Clean Code,Livres,Prentice Hall,2,44.99,10,89.98,PayPal,2025,12,9.0
+14,2025-12-08,Delivered,Laura Lefebvre,laura.lefebvre@email.fr,Saint-Étienne,France,Python pour les Data Sciences,Livres,Éditions Eyrolles,3,39.99,10,119.97,PayPal,2025,12,12.0
+15,2025-12-10,Delivered,Thomas Michel,thomas.michel@email.fr,Toulon,France,Blouson cuir Zara,Vêtements,Zara,1,199.99,0,199.99,Carte bancaire,2025,12,0.0
+16,2025-12-12,Delivered,Jean Dupont,jean.dupont@email.fr,Paris,France,Souris Logitech MX Master 3,Électronique,Logitech,1,99.99,0,99.99,Carte bancaire,2025,12,0.0
+17,2025-12-15,Delivered,Marie Martin,marie.martin@email.fr,Lyon,France,Souris Logitech MX Master 3,Électronique,Logitech,1,99.99,0,99.99,PayPal,2025,12,0.0
+17,2025-12-15,Delivered,Marie Martin,marie.martin@email.fr,Lyon,France,Veste Adidas à capuche,Vêtements,Adidas,1,79.99,0,79.99,PayPal,2025,12,0.0
+18,2025-12-18,Delivered,Pierre Bernard,pierre.bernard@email.fr,Marseille,France,"Samsung TV QLED 55""",Électronique,Samsung Electronics,1,1499.0,0,1499.0,Carte bancaire,2025,12,0.0
+19,2025-12-20,Delivered,Sophie Dubois,sophie.dubois@email.fr,Toulouse,France,Cafetière Nespresso,Maison,Nespresso,1,199.99,0,199.99,Carte bancaire,2025,12,0.0
+19,2025-12-20,Delivered,Sophie Dubois,sophie.dubois@email.fr,Toulouse,France,Pull H&M en laine,Vêtements,H&M,2,39.99,0,79.98,Carte bancaire,2025,12,0.0
+20,2025-12-22,Delivered,Luc Thomas,luc.thomas@email.fr,Nice,France,"MacBook Pro 14""",Électronique,Apple Inc.,1,2299.0,0,2299.0,PayPal,2025,12,0.0
+21,2025-12-25,Delivered,Julie Robert,julie.robert@email.fr,Nantes,France,Clavier mécanique Logitech,Électronique,Logitech,1,149.99,0,149.99,Carte bancaire,2025,12,0.0
+22,2025-12-28,Delivered,Marc Richard,marc.richard@email.fr,Strasbourg,France,Baskets Adidas Superstar,Vêtements,Adidas,1,89.99,0,89.99,Carte bancaire,2025,12,0.0
+23,2025-12-30,Delivered,Claire Petit,claire.petit@email.fr,Bordeaux,France,Laptop Dell XPS 13,Électronique,Dell Inc.,1,1299.99,0,1299.99,PayPal,2025,12,0.0
+24,2026-01-02,Delivered,Paul Durand,paul.durand@email.fr,Montpellier,France,Apple Watch Series 8,Électronique,Apple Inc.,1,449.0,0,449.0,Carte bancaire,2026,1,0.0
+25,2026-01-05,Delivered,Emma Leroy,emma.leroy@email.fr,Lille,France,Écouteurs Sony WH-1000XM5,Électronique,Sony Corporation,1,379.99,0,379.99,Carte bancaire,2026,1,0.0
+26,2026-01-08,Shipped,Antoine Moreau,antoine.moreau@email.fr,Rennes,France,Robot cuiseur Thermomix,Maison,Vorwerk,1,1299.0,2,1299.0,PayPal,2026,1,25.98
+26,2026-01-08,Shipped,Antoine Moreau,antoine.moreau@email.fr,Rennes,France,T-shirt Nike Sportswear,Vêtements,Nike,1,29.99,0,29.99,PayPal,2026,1,0.0
+27,2026-01-10,Shipped,Camille Simon,camille.simon@email.fr,Reims,France,iPad Air,Électronique,Apple Inc.,1,699.0,0,699.0,Carte bancaire,2026,1,0.0
+28,2026-01-12,Shipped,Nicolas Laurent,nicolas.laurent@email.fr,Le Havre,France,Souris Logitech MX Master 3,Électronique,Logitech,1,99.99,0,99.99,Carte bancaire,2026,1,0.0
+29,2026-01-14,Shipped,Laura Lefebvre,laura.lefebvre@email.fr,Saint-Étienne,France,Pull H&M en laine,Vêtements,H&M,1,39.99,0,39.99,PayPal,2026,1,0.0
+29,2026-01-14,Shipped,Laura Lefebvre,laura.lefebvre@email.fr,Saint-Étienne,France,T-shirt Nike Sportswear,Vêtements,Nike,2,29.99,0,59.98,PayPal,2026,1,0.0
+29,2026-01-14,Shipped,Laura Lefebvre,laura.lefebvre@email.fr,Saint-Étienne,France,Veste Adidas à capuche,Vêtements,Adidas,2,79.99,15,159.98,PayPal,2026,1,24.0
+30,2026-01-16,Shipped,Thomas Michel,thomas.michel@email.fr,Toulon,France,Samsung Galaxy S23,Électronique,Samsung Electronics,1,899.99,0,899.99,Carte bancaire,2026,1,0.0
+31,2026-01-18,Shipped,Sarah Garcia,sarah.garcia@email.fr,Grenoble,France,Chaussures Nike Air Max,Vêtements,Nike,2,139.99,10,279.98,Carte bancaire,2026,1,28.0
+32,2026-01-19,Shipped,Julien Roux,julien.roux@email.fr,Dijon,France,iPhone 14 Pro,Électronique,Apple Inc.,1,1159.0,0,1159.0,PayPal,2026,1,0.0
+33,2026-01-20,Shipped,Alice Fournier,alice.fournier@email.fr,Angers,France,Écouteurs Sony WH-1000XM5,Électronique,Sony Corporation,1,379.99,0,379.99,Carte bancaire,2026,1,0.0
